@@ -11,7 +11,7 @@
 	Verify the awr.jar in the target folder
 
 4.) Move the rest.jar to the webapp folder of the Tomcat installation
-	Start the server and verify whether the server has started on 8088.
+	Start the server and verify whether the server has started on a port (8088 is where my Tomcat listens). 
 	Verify: http://localhost:8088/
 			http://localhost:8088/awr/
 			http://localhost:8088/awr/index.jsp
@@ -30,7 +30,11 @@
 
 8.) Run the final API test in the browser that gets you country data from the Mysql DB
 	http://localhost:8088/awr/countries
+	http://localhost:8088/awr/countries.json
+	http://localhost:8088/awr/countries.xml
 	http://localhost:8088/awr/countries/in
+	http://localhost:8088/awr/countries/in.json
+	http://localhost:8088/awr/countries/in.xml
 	
 	You should also go in the developer tools of chrome browser to verify the Networks calls made to the server and their response.
 

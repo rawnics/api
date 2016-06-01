@@ -11,6 +11,7 @@
 	Verify the awr.jar in the target folder
 
 4.) Move the rest.jar to the webapp folder of the Tomcat installation
+	Setup: https://www.ntu.edu.sg/home/ehchua/programming/howto/Tomcat_HowTo.html
 	Start the server and verify whether the server has started on a port (8088 is where my Tomcat listens). 
 	Verify: http://localhost:8088/
 			http://localhost:8088/awr/

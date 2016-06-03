@@ -19,7 +19,7 @@
 		<netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.test.failure.ignore>true</maven.test.failure.ignore>
-		<maven.tomcat.port>8080</maven.tomcat.port>
+		<maven.tomcat.port>8088</maven.tomcat.port>
 		<apache.httpclient.version>4.5</apache.httpclient.version>
 	</properties>
 

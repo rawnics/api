@@ -46,7 +46,8 @@ public class MasterController {
 
 
 
-	/** Get All Country Codes
+	/** 
+	 * Get All Country Codes
 	 * 
 	 * @return
 	 * @throws AwrException
@@ -63,9 +64,9 @@ public class MasterController {
 				countryVoList.add(new CountryVo(countryDto));
 			countries.setCountrycode(countryVoList);
 		}else{
-			AwrError ctfsError = AwrError.forValue(51);
+			AwrError err = AwrError.forValue(51);
 			Object[] values = null;
-			String message =  messageSourceUtility.getMessageValue(ctfsError, values, locale);
+			String message =  messageSourceUtility.getMessageValue(err, values, locale);
 			throw new AwrException(message,ErrorEnum.INFO.toString());
 		}
 		return countries;
@@ -92,9 +93,9 @@ public class MasterController {
 			countryVoList.add(new CountryVo(countryDto));
 			countries.setCountrycode(countryVoList);
 		}else{
-			AwrError ctfsError = AwrError.forValue(51);
+			AwrError err = AwrError.forValue(51);
 			Object[] values = null;
-			String message =  messageSourceUtility.getMessageValue(ctfsError, values, locale);
+			String message =  messageSourceUtility.getMessageValue(err, values, locale);
 			throw new AwrException(message,ErrorEnum.INFO.toString());
 		}
 		return countries;

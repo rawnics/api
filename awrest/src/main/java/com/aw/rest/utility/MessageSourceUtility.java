@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.aw.rest.utility;
 
 import java.util.Locale;
@@ -12,6 +9,10 @@ import org.springframework.stereotype.Component;
 import com.aw.rest.exception.AwrError;
 
 
+/**
+ * @author vishwaka
+ *
+ */
 @Component
 public class MessageSourceUtility {
 
@@ -19,6 +20,7 @@ public class MessageSourceUtility {
 	private MessageSource messageSource;
 	
 	/**
+	 * Get localized message value from the messages_*.properties bundle
 	 * 
 	 * @param errorMessageKey
 	 * @param moduleName
@@ -32,6 +34,7 @@ public class MessageSourceUtility {
     }
 	
 	/**
+	 * Get localized message value from the messages_*.properties bundle
 	 * 
 	 * @param errorMessageKey
 	 * @param moduleName
@@ -43,6 +46,7 @@ public class MessageSourceUtility {
     	return messageSource.getMessage(errorMessageKey,values, locale);
     }
 	/**
+	 * Get localized message value from the messages_*.properties bundle
 	 * 
 	 * @param errorMessageKey
 	 * @param moduleName
@@ -54,6 +58,7 @@ public class MessageSourceUtility {
 	}
 	
 	/**
+	 * Get localized message value from the messages_*.properties bundle
 	 * 
 	 * @param errorMessageKey
 	 * @return
@@ -63,6 +68,7 @@ public class MessageSourceUtility {
 	}
 	
 	/**
+	 * Get localized message value from the messages_*.properties bundle
 	 * 
 	 * @param errorMessageKey
 	 * @return
@@ -71,8 +77,16 @@ public class MessageSourceUtility {
 		return getMessageValue(errorMessageKey,null,null,locale);
 	}
 	
-	public String getMessageValue(AwrError ctfsError,Object[] values,Locale locale){
-		return getMessageValue(ctfsError.getErrorMessageId(),values,locale);
+	/**
+	 * Get localized message value from the messages_*.properties bundle
+	 * 
+	 * @param error
+	 * @param values
+	 * @param locale
+	 * @return
+	 */
+	public String getMessageValue(AwrError error,Object[] values,Locale locale){
+		return getMessageValue(error.getErrorMessageId(),values,locale);
 	}
 	
 }

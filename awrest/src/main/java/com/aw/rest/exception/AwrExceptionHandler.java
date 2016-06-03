@@ -126,6 +126,7 @@ public class AwrExceptionHandler {
 
     /**
      * Exception handler
+     * 
      * @param ex exception
      * @param notifyByEmail boolean value
      * @param returnErrorView boolean value
@@ -136,7 +137,7 @@ public class AwrExceptionHandler {
 		    log.error(errMsg);
 		    log.error("handleException - Catching: " + ex.getMessage());	    
 		   /* if (notifyByEmail == true)
-			emailUtil.sendMail(null, "WPI ERROR", errMsg);*/
+				emailUtil.sendMail(null, "ERROR", errMsg);*/
 		} catch (Exception e) {
 		    log.error(e.getMessage(), e);
 		}

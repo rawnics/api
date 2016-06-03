@@ -812,7 +812,7 @@ public class Utility {
 			}
 		}
 		if (localhostname == null || localhostname.isEmpty()) {
-			localhostname = "WMS Server";
+			localhostname = "AWR Server";
 		}
     	return localhostname;
     }

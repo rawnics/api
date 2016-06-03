@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 import com.aw.rest.dal.entity.Country;
 
+/**
+ * @author vishwaka
+ *
+ */
 public class CountryDto implements Serializable{
 
 	private static final long serialVersionUID = 1L;

@@ -31,6 +31,9 @@ public class CountryDao implements ICountryDao {
 	private JdbcTemplate awrServiceJdbcTemplate; 
 	
 	
+	/* (non-Javadoc)
+	 * @see com.aw.rest.dal.ICountryDao#getAllCountries()
+	 */
 	@Override
 	public List<Country> getAllCountries() throws AwrException {
 		String query = "SELECT c.isoa2, c.name, c.full_name, c.isoa3, c.country_id, "
@@ -43,6 +46,9 @@ public class CountryDao implements ICountryDao {
 		return countryCodes;
 	}
 	
+	/* (non-Javadoc)
+	 * @see com.aw.rest.dal.ICountryDao#getCountry(java.lang.String)
+	 */
 	@Override
 	public Country getCountry(String id) throws AwrException {
 		String query = "SELECT c.isoa2, c.name, c.full_name, c.isoa3, c.country_id, "
@@ -58,6 +64,9 @@ public class CountryDao implements ICountryDao {
 	}
 
 
+	/* (non-Javadoc)
+	 * @see com.aw.rest.dal.ICountryDao#getAllContinents()
+	 */
 	@Override
 	public List<Continent> getAllContinents() throws AwrException {
 		String query = "SELECT code, name FROM continent";

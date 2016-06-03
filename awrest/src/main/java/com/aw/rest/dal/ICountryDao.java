@@ -16,9 +16,29 @@ import com.aw.rest.exception.AwrException;
  */
 public interface ICountryDao {
 
+	/**
+	 * Get all countries
+	 * 
+	 * @return
+	 * @throws AwrException
+	 */
 	public List<Country> getAllCountries() throws AwrException;
+	
+	/**
+	 * Get a country by country code
+	 * 
+	 * @param id
+	 * @return
+	 * @throws AwrException
+	 */
 	public Country getCountry(String id) throws AwrException;
 	
+	/**
+	 * Get all continents
+	 * 
+	 * @return
+	 * @throws AwrException
+	 */
 	public List<Continent> getAllContinents() throws AwrException;
 	
 }

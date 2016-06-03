@@ -6,6 +6,7 @@ import java.util.Map;
 
 /**
  * @author Rahul Vishwakarma
+ * 
  * @category Exceptions AwrError enumeration keeps all the error codes and their
  *           respective message identification codes
  * 

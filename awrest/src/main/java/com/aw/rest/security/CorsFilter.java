@@ -21,7 +21,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
  	<!-- Add this to your web.xml to enable "CORS" -->
 	<filter>
 	  <filter-name>cors</filter-name>
-	  <filter-class>com.hp.ctfr.security.CorsFilter</filter-class>
+	  <filter-class>com.aw.rest.security.CorsFilter</filter-class>
 	</filter>
 	  
 	<filter-mapping>

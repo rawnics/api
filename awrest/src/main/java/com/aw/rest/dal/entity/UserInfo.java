@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.aw.rest.dal.common;
+package com.aw.rest.dal.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;

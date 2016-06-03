@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.aw.rest.dal.IConfigurationDao;
-import com.aw.rest.dal.common.ConfigSetting;
+import com.aw.rest.dal.entity.ConfigSetting;
 import com.aw.rest.exception.AwrException;
 
 /**
@@ -27,8 +27,9 @@ public class ConfigurationDao implements IConfigurationDao {
 	@Autowired
 	private JdbcTemplate awrServiceJdbcTemplate;
 	
+	
 	/* (non-Javadoc)
-	 * @see com.hp.wms.dal.IConfigurationDao#getConfigurations(java.lang.String)
+	 * @see com.aw.rest.dal.IConfigurationDao#getConfigurations(java.lang.String)
 	 */
 	@Override
 	public List<ConfigSetting> getConfigurations(String type) throws AwrException {
@@ -52,8 +53,9 @@ public class ConfigurationDao implements IConfigurationDao {
 		return config;
 	}
 	
+	
 	/* (non-Javadoc)
-	 * @see com.hp.wms.dal.IConfigurationDao#getConfiguration(java.lang.String)
+	 * @see com.aw.rest.dal.IConfigurationDao#getConfiguration(java.lang.String)
 	 */
 	@Override
 	public ConfigSetting getConfiguration(String key) throws AwrException {

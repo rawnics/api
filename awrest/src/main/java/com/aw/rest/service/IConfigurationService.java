@@ -47,6 +47,5 @@ public interface IConfigurationService {
 	 * @throws Exception
 	 */
 	String getConfiguration(String key) throws AwrException;
-
 	String getDbConfiguration(String key) throws AwrException;
 }

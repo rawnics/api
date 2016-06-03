@@ -44,9 +44,7 @@ public class AwrScheduleService implements Job{
 	
 	@Autowired
 	private IConfigurationService configurationService;	
-	
-	@Autowired
-	private Utility utility;
+
 
 	/**
 	 * Initialize the job and schedule it upon server start
@@ -144,7 +142,7 @@ public class AwrScheduleService implements Job{
 	 * TODO
 	 */
 	public void executeJobActivity(){
-		
+		log.info("TODO");
 	}
 	 
 	/**

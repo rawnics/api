@@ -1,16 +1,5 @@
-/*
- * Title 			: WPIComputeSetting.java  
- * Company 			: Hewlett Packard
- * Project Name 	: Wildlife Picture Index
- * @author 			: Rahul
- * @version 		: 1.0 
- * Date 			: Dec, 2013
- * <p>
- * � Copyright 2013 Hewlett-Packard Development Company, L.P. All rights reserved.
- * @see : HP SOFTWARE LICENSE AND DISTRIBUTION AGREEMENT
- */
 
-package com.aw.rest.dal.common;
+package com.aw.rest.dal.entity;
 
 import java.io.Serializable;
 

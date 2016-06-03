@@ -16,7 +16,28 @@ import com.aw.rest.exception.AwrException;
  */
 public interface IMasterService {
 
+	/**
+	 * Get all countries
+	 * 
+	 * @return
+	 * @throws AwrException
+	 */
 	public List<CountryDto> getAllCountries() throws AwrException;
+	
+	/**
+	 * Get countries by country code 
+	 * 
+	 * @param countryCode
+	 * @return
+	 * @throws AwrException
+	 */
 	public CountryDto getCountry(String countryCode) throws AwrException;
+	
+	/**
+	 * Get all continents
+	 * 
+	 * @return
+	 * @throws AwrException
+	 */
 	public List<Continent> getAllContinents() throws AwrException;
 }

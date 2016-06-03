@@ -34,7 +34,7 @@ public class MasterService implements IMasterService {
 
 
 	/* (non-Javadoc)
-	 * @see com.hp.wms.service.IMasterDataService#getAllCountries()
+	 * @see com.aw.rest.service.IMasterService#getAllCountries()
 	 */
 	@Override
 	public List<CountryDto> getAllCountries() throws AwrException {
@@ -48,8 +48,9 @@ public class MasterService implements IMasterService {
 		return ccs;
 	}
 
+
 	/* (non-Javadoc)
-	 * @see com.hp.wms.service.IMasterDataService#getCountry(java.lang.String)
+	 * @see com.aw.rest.service.IMasterService#getCountry(java.lang.String)
 	 */
 	@Override
 	public CountryDto getCountry(String countryCode)
@@ -59,8 +60,9 @@ public class MasterService implements IMasterService {
 		return new CountryDto(c);
 	}
 
+
 	/* (non-Javadoc)
-	 * @see com.hp.wms.service.IMasterDataService#getAllContinents()
+	 * @see com.aw.rest.service.IMasterService#getAllContinents()
 	 */
 	@Override
 	public List<Continent> getAllContinents() throws AwrException {

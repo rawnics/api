@@ -1,14 +1,4 @@
-/*
- * Title 			: RestURIConstants.java  
- * Company 			: Hewlett Packard
- * Project Name 	: WMS
- * @author 			: Rahul
- * @version 		: 1.0 
- * Date 			: May, 2015
- * <p>
- * � Copyright 2013 Hewlett-Packard Development Company, L.P. All rights reserved.
- * @see : HP SOFTWARE LICENSE AND DISTRIBUTION AGREEMENT
- */
+
 package com.aw.rest.constants;
 
 /**

@@ -14,13 +14,17 @@ import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.stereotype.Service;
 
 import com.aw.rest.dal.IConfigurationDao;
-import com.aw.rest.dal.common.ConfigSetting;
+import com.aw.rest.dal.entity.ConfigSetting;
 import com.aw.rest.exception.AwrError;
 import com.aw.rest.exception.AwrException;
 import com.aw.rest.service.IConfigurationService;
 
 /**
  * @author Rahul Vishwakarma
+ *
+ */
+/**
+ * @author vishwaka
  *
  */
 @Service
@@ -53,6 +57,7 @@ public class ConfigurationService implements IConfigurationService {
 	
 	/**
 	 * Initialize system wide http proxy
+	 * 
 	 * @param propSpring
 	 */
 	private void initializeSystemSettings(Properties propSpring){
@@ -63,8 +68,9 @@ public class ConfigurationService implements IConfigurationService {
 	
 	
 
+
 	/* (non-Javadoc)
-	 * @see com.hp.wms.service.IConfigurationService#getConfiguration(java.lang.String)
+	 * @see com.aw.rest.service.IConfigurationService#getConfiguration(java.lang.String)
 	 */
 	@Override
 	public String getConfiguration(String key) throws AwrException {
@@ -85,7 +91,7 @@ public class ConfigurationService implements IConfigurationService {
 	}
 	
 	/* (non-Javadoc)
-	 * @see com.hp.wms.service.IConfigurationService#getDbConfiguration(java.lang.String)
+	 * @see com.aw.rest.service.IConfigurationService#getDbConfiguration(java.lang.String)
 	 */
 	@Override
 	public String getDbConfiguration(String key) throws AwrException {

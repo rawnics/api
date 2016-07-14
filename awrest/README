@@ -9,11 +9,15 @@
 3.) Change directory to the path where pom.xml is for the REST project
 	Build: mvn install
 	Verify the awr.jar in the target folder
+	
+	A maven profile is created to allow custom build, package and test configurations.
+	Usage: 	mvn -P dev install
+			mvn -P dev install tomcat7:run 
 
 4.) Move the rest.jar to the webapp folder of the Tomcat installation
 	Setup: https://www.ntu.edu.sg/home/ehchua/programming/howto/Tomcat_HowTo.html
 	Start the server and verify whether the server has started on a port (8088 is where my Tomcat listens). 
-	Verify: http://localhost:8088/
+	Verify:	http://localhost:8088/
 			http://localhost:8088/awr/
 			http://localhost:8088/awr/index.jsp
 

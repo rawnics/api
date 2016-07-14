@@ -3,7 +3,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>awr.service</groupId>
-	<artifactId>awrest</artifactId>
+	<artifactId>awr</artifactId>
 	<packaging>war</packaging>
 	<version>1.0.2</version>
 	<name>Awnics-Rest-Webservice</name>
@@ -312,9 +312,11 @@
 		</repository>
 	</repositories>
 
+	<!-- 
+		Overall build 
+	 -->
 	<build>
 		<finalName>awr</finalName>
-
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -338,7 +340,6 @@
 				<artifactId>svn-revision-number-maven-plugin</artifactId>
 				<version>1.13</version>
 				<executions>
-
 				</executions>
 				<configuration>
 					<entries>
@@ -348,18 +349,65 @@
 					</entries>
 				</configuration>
 			</plugin>
+		</plugins>
+	</build>
+	
+	
+	
+	<!-- 
+		Profile based build for customized configuration packaging 
+	-->
+	<profiles>
+	
+	<!-- A.) Profile Local Development Environment. 
+			 Usage: mvn -P dev install
+			 		mvn -P dev install tomcat7:run 
+	-->
+	<profile>
+		<id>dev</id>
+		<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>test</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+						<tasks>
+							<delete file="${project.build.outputDirectory}/database/database_local.properties"/>
+							<delete file="${project.build.outputDirectory}/database/database_aws_prod.properties"/>
+							<copy file="${basedir}/src/main/resources/database/database_local.properties"
+									tofile="${project.build.outputDirectory}/database/database.properties"/>
+							<replace dir="${project.build.outputDirectory}/" >
+								<include name="spring-security.properties"/>
+								<replacefilter token="@PROXY_CONFIGURATION_SWITCH@" value="no"/>
+							</replace>
+						</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.2</version>
-				<configuration>
-					<archive>
-						<manifestEntries>
-							<SCM-Revision>${scm.revision}</SCM-Revision>
-							<timestamp>${maven.build.timestamp}</timestamp>
-						</manifestEntries>
-					</archive>
-				</configuration>
+				<executions>
+					<execution>
+					<phase>package</phase>
+					<configuration>
+						<classifier>dev</classifier>
+						<archive>
+							<manifestEntries>
+								<SCM-Revision>${scm.revision}</SCM-Revision>
+								<timestamp>${maven.build.timestamp}</timestamp>
+							</manifestEntries>
+						</archive>
+					</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
@@ -371,5 +419,72 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>
+		</build>
+	</profile>
+
+
+	<!-- B.) Profile AWS Production Environment.
+			 Usage: mvn -P prod install
+			 		mvn -P prod install tomcat7:run 
+	-->
+	<profile>
+		<id>prod</id>
+		<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>test</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+						<tasks>
+							<delete file="${project.build.outputDirectory}/database/database_local.properties"/>
+							<delete file="${project.build.outputDirectory}/database/database_aws_prod.properties"/>
+							<copy file="${basedir}/src/main/resources/database/database_aws_prod.properties"
+									tofile="${project.build.outputDirectory}/database/database.properties"/>
+							<replace dir="${project.build.outputDirectory}/" >
+								<include name="spring-security.properties"/>
+								<replacefilter token="@PROXY_CONFIGURATION_SWITCH@" value="no"/>
+							</replace>
+						</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<execution>
+					<phase>package</phase>
+					<configuration>
+						<classifier>prod</classifier>
+						<archive>
+							<manifestEntries>
+								<SCM-Revision>${scm.revision}</SCM-Revision>
+								<timestamp>${maven.build.timestamp}</timestamp>
+							</manifestEntries>
+						</archive>
+					</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>          
+				    <server>tomcat-development-server</server>
+				    <port>${maven.tomcat.port}</port>
+				</configuration>
+			</plugin>
+		</plugins>
+		</build>
+	</profile>
+	</profiles>
+	
 </project>

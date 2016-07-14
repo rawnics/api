@@ -19,7 +19,7 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:database/database_local.properties</value>
+				<value>classpath:database/database.properties</value>
 				<value>classpath:quartz.properties</value>
 				<value>classpath:spring-security.properties</value>
 			</list>

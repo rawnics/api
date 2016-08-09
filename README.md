@@ -11,9 +11,9 @@ A. Workflow and commands for branching to develop and merging back to master rep
      List branches      : git ls-remote origin
      Checkout branch    : git checkout -b develop master
      Select branch      : git checkout develop
-(3)  Code Changes       : echo “Development branch code base changed” >> Ships\README.md
+(3)  Code Changes       : echo "Development branch code base changed" >> README.md
        (3.1) Index      : git add .
-       (3.2) Commit     : git commit -a -m “Development branch code base”
+       (3.2) Commit     : git commit -a -m "Development branch code base"
        (3.3) Remote push: git push origin develop
 (4) Merge
      (4.1) Compare branch : git diff master develop

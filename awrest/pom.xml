@@ -11,8 +11,8 @@
 
 	<properties>
 		<java.version>1.7</java.version>
-		<spring.version>4.1.4.RELEASE</spring.version>
-		<spring.security.version>3.2.5.RELEASE</spring.security.version>
+		<spring.version>4.3.2.RELEASE</spring.version>
+		<spring.security.version>4.1.1.RELEASE</spring.security.version>
 		<aspectj.version>1.7.2</aspectj.version>
 		<cglib.version>2.2.2</cglib.version>
 		<jackson.version>2.3.0</jackson.version>
@@ -25,6 +25,12 @@
 
 	<dependencies>
 
+		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+		<dependency>
+		    <groupId>io.springfox</groupId>
+		    <artifactId>springfox-swagger2</artifactId>
+		    <version>2.5.0</version>
+		</dependency>
 	
 		<!-- Spring core & mvc -->
 		<dependency>
@@ -377,8 +383,13 @@
 						</goals>
 						<configuration>
 						<tasks>
-							<delete file="${project.build.outputDirectory}/database/database_local.properties"/>
-							<delete file="${project.build.outputDirectory}/database/database_aws_prod.properties"/>
+							<delete>
+								<fileset dir="${project.build.outputDirectory}/database" includes="*.properties" />
+								<fileset dir="${project.build.outputDirectory}" includes="*.properties" />
+							</delete>
+							<copy todir="${project.build.outputDirectory}">
+								<fileset dir="${basedir}/src/main/resources" includes="*.properties"  />
+							</copy>
 							<copy file="${basedir}/src/main/resources/database/database_local.properties"
 									tofile="${project.build.outputDirectory}/database/database.properties"/>
 							<replace dir="${project.build.outputDirectory}/" >
@@ -441,8 +452,13 @@
 						</goals>
 						<configuration>
 						<tasks>
-							<delete file="${project.build.outputDirectory}/database/database_local.properties"/>
-							<delete file="${project.build.outputDirectory}/database/database_aws_prod.properties"/>
+							<delete>
+								<fileset dir="${project.build.outputDirectory}/database" includes="*.properties" />
+								<fileset dir="${project.build.outputDirectory}" includes="*.properties" />
+							</delete>
+							<copy todir="${project.build.outputDirectory}">
+								<fileset dir="${basedir}/src/main/resources" includes="*.properties"  />
+							</copy>
 							<copy file="${basedir}/src/main/resources/database/database_aws_prod.properties"
 									tofile="${project.build.outputDirectory}/database/database.properties"/>
 							<replace dir="${project.build.outputDirectory}/" >

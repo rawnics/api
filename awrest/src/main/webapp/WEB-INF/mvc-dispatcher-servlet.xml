@@ -7,21 +7,29 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
-	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
-	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
-	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.1.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.1.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 	
 	<context:annotation-config/>
 	<context:component-scan base-package="com.aw.rest" />
 	<mvc:annotation-driven/>
 	
-	<!-- The @AspectJ support is enabled by including the below tag -->     
-    <aop:aspectj-autoproxy /> 
-    <!-- AOP Logging -->
-	<bean id="awrLoggerAspect" class="com.aw.rest.exception.AwrLoggerAspect" /> 
+	<!-- The @AspectJ support is enabled by including the below tag -->
+	<aop:aspectj-autoproxy /> 
+	<!-- AOP Logging -->
+	<bean id="awrLoggerAspect" class="com.aw.rest.exception.AwrLoggerAspect" />
+	
+	<!-- Swagger Configurations -->
+	<!-- Enables swgger ui-->
+	<mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
+	<mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+
+	<!-- Include a swagger configuration-->
+	<bean name="applicationSwaggerConfig" class="com.aw.rest.utility.ApplicationSwaggerConfig"/>
 	
 	<!-- Locale Resolver -->
 	<bean id="localeResolver"
@@ -39,55 +47,63 @@
 		</mvc:interceptor>
 	</mvc:interceptors>
 	
- 	<!--
- 		For Multiple response types
- 		REST Call to be appended with .json/.xml/.rss or just the bare call for the default format.
- 		Reference: http://www.mkyong.com/spring-mvc/spring-3-mvc-contentnegotiatingviewresolver-example/ 
-  	-->
+	<!--
+		For Multiple response types
+		REST Call to be appended with .json/.xml/.rss or just the bare call for the default format.
+		Reference: http://www.mkyong.com/spring-mvc/spring-3-mvc-contentnegotiatingviewresolver-example/ 
+ 	-->
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-	  <property name="order" value="1" />
-	  <property name="defaultContentType" value="application/json" />
-	  <property name="mediaTypes">
-		<map>
-		   <entry key="json" value="application/json" />
-		   <entry key="xml" value="application/xml" />
-		</map>
-	  </property>
-
-	  <property name="defaultViews">
+		<property name="contentNegotiationManager" ref="contentNegotiationManager"/>
+		<property name="viewResolvers">
 		<list>
-		  <!-- JSON View -->
-		  <bean
-			class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
-		  </bean>
- 
-		  <!-- JAXB XML View -->
-		  <bean class="org.springframework.web.servlet.view.xml.MarshallingView">
-			<constructor-arg>
-				<bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
-				   <property name="packagesToScan">
-					<list>
-					   <value>com.aw.rest.vo</value>
-					   <value>com.aw.rest.dto</value>
-					</list>
-				   </property>
+			<!-- If no extension matched, use views -->
+			<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+				<property name="order" value="2"/>
+				<property name="prefix">
+					<value>/WEB-INF/views/</value>
+				</property>
+				<property name="suffix">
+					<value>.jsp</value>
+				</property>
+			</bean>
+		</list>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<!-- JSON View -->
+				<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+				<!-- JAXB XML View -->
+				<bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+				<constructor-arg>
+					<bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+						<property name="packagesToScan">
+						<list>
+							<value>com.aw.rest.vo</value>
+							<value>com.aw.rest.dto</value>
+						</list>
+						</property>
+					</bean>
+				</constructor-arg>
 				</bean>
-			</constructor-arg>
-		  </bean>
-		 </list>
-	  </property>
-	  <property name="ignoreAcceptHeader" value="true" />
+			</list>
+		</property>
 	</bean>
 
-	<!-- If no extension matched, use JSP view -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="order" value="2"/>
-		<property name="prefix">
-			<value>/WEB-INF/views/</value>
+	<bean id="contentNegotiationManager"  class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="favorPathExtension" value="true" />
+		<property name="ignoreAcceptHeader" value="true"/>
+		<property name="useJaf" value="false"/>
+		<property name="defaultContentType" value="application/json" />
+		<property name="mediaTypes">
+			<map>
+				<entry key="json" value="application/json"/>
+				<entry key="xml" value="application/xml" />
+				<entry key="html" value="text/html"/>
+			</map>
 		</property>
-		<property name="suffix">
-			<value>.jsp</value>
-		</property>
+		
 	</bean>
+
+	
 
 </beans>

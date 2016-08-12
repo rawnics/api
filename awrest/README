@@ -43,4 +43,8 @@
 	
 	You should also go in the developer tools of chrome browser to verify the Networks calls made to the server and their response.
 
+9.) Swagger Documentation
+	Check the api-docs end point and then the swagger page for documentation
+	http://localhost:8088/awr/v2/api-docs
+	http://localhost:8088/awr/swagger-ui.html
  

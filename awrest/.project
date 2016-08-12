@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>awrest</name>
-	<comment>NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
+	<name>awr</name>
+	<comment>Execution Instructions:
+
+1.	Run a dev instance of API
+ 	mvn -P dev install tomcat7:run
+
+2. 	Run a prod instance of API
+	mvn -P prod install tomcat7:run. NO_M2ECLIPSE_SUPPORT: Project files created with the maven-eclipse-plugin are not supported in M2Eclipse.</comment>
 	<projects>
 	</projects>
 	<buildSpec>

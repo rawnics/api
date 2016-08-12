@@ -7,7 +7,7 @@
 	<packaging>war</packaging>
 	<version>1.0.2</version>
 	<name>Awnics-Rest-Webservice</name>
-	<url>http://maven.apache.org</url>
+	<url>https://www.awnics.com/api/v2/</url>
 
 	<properties>
 		<java.version>1.7</java.version>
@@ -15,7 +15,7 @@
 		<spring.security.version>4.1.1.RELEASE</spring.security.version>
 		<aspectj.version>1.7.2</aspectj.version>
 		<cglib.version>2.2.2</cglib.version>
-		<jackson.version>2.3.0</jackson.version>
+		<jackson.version>2.7.5</jackson.version>
 		<netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.test.failure.ignore>true</maven.test.failure.ignore>
@@ -31,6 +31,13 @@
 		    <artifactId>springfox-swagger2</artifactId>
 		    <version>2.5.0</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
+		<dependency>
+		    <groupId>io.springfox</groupId>
+		    <artifactId>springfox-swagger-ui</artifactId>
+		    <version>2.5.0</version>
+		</dependency>
+				
 	
 		<!-- Spring core & mvc -->
 		<dependency>
@@ -70,10 +77,10 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 
 		<!-- spring oxm -->
 		<dependency>
@@ -89,7 +96,6 @@
 		</dependency>
 
 		<!-- Spring Security -->
-	
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
@@ -503,4 +509,13 @@
 	</profile>
 	</profiles>
 	
+<description>Execution Instructions:
+
+1.	Run a dev instance of API
+ 	mvn -P dev install tomcat7:run
+
+2. 	Run a prod instance of API
+	mvn -P prod install tomcat7:run
+
+</description>
 </project>

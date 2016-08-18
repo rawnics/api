@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-lazy-init="true" 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"   
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<context:annotation-config/>
+	<context:component-scan base-package="com.aw.rest" />
+	<mvc:annotation-driven/>
+	
+	<!-- The @AspectJ support is enabled by including the below tag -->
+	<aop:aspectj-autoproxy /> 
+	<!-- AOP Logging -->
+	<bean id="awrLoggerAspect" class="com.aw.rest.exception.AwrLoggerAspect" />
+	
+	<mvc:cors>
+		<mvc:mapping path="/**"
+			allowed-origins="*"
+			allowed-methods="GET, POST, PUT, DELETE, OPTIONS"
+			allowed-headers="Origin, Content-Type, Authorization, X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,  Date, X-Api-Version, X-File-Name"
+			exposed-headers="" 
+			allow-credentials="false"
+			max-age="1800" />
+		<mvc:mapping path="/resources/**" allowed-origins="*" />
+	</mvc:cors>
+		
+	<!-- Swagger Configurations -->
+	<!-- Enables swgger ui-->
+	<mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
+	<mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	
+
+	<!-- Include a swagger configuration-->
+	<bean name="applicationSwaggerConfig" class="com.aw.rest.utility.ApplicationSwaggerConfig"/>
+	
+	<!-- Locale Resolver -->
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+		<property name="defaultLocale" value="en_US" />
+	</bean>
+
+	<!-- Will help us to change locale for "language" param, example: ?language=fr -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+				<property name="paramName" value="language" />
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	<!--
+		For Multiple response types
+		REST Call to be appended with .json/.xml/.rss or just the bare call for the default format.
+		Reference: http://www.mkyong.com/spring-mvc/spring-3-mvc-contentnegotiatingviewresolver-example/ 
+ 	-->
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="contentNegotiationManager" ref="mvcContentNegotiationManager"/>
+		<property name="viewResolvers">
+		<list>
+			<!-- If no extension matched, use views -->
+			<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+				<property name="order" value="2"/>
+				<property name="prefix">
+					<value>/WEB-INF/views/</value>
+				</property>
+				<property name="suffix">
+					<value>.jsp</value>
+				</property>
+			</bean>
+		</list>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<!-- JSON View -->
+				<bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+				<!-- JAXB XML View -->
+				<bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+				<constructor-arg>
+					<bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+						<property name="packagesToScan">
+						<list>
+							<value>com.aw.rest.vo</value>
+							<value>com.aw.rest.dto</value>
+						</list>
+						</property>
+					</bean>
+				</constructor-arg>
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="mvcContentNegotiationManager"  class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="favorPathExtension" value="true" />
+		<property name="ignoreAcceptHeader" value="true"/>
+		<property name="useJaf" value="false"/>
+		<property name="defaultContentType" value="application/json" />
+		<property name="mediaTypes">
+			<map>
+				<entry key="json" value="application/json"/>
+				<entry key="xml" value="application/xml" />
+				<entry key="html" value="text/html"/>
+			</map>
+		</property>
+		
+	</bean>
+
+	
+
+</beans>
